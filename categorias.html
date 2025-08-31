@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> VERENXOVAIS - Cadastro de {{titulo}} </title>
+    <link rel="stylesheet" href="../static/css/verenxovais.css">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h3>Cadastro de {{titulo}}</h3>
+        </div>
+
+    <form action="/categoria/criar" method="post">
+        <div class="form-group">
+            <label for="descricao" class="form-label">Descrição</label>
+            <input type="text" class="form-control" id="descricao" name="descricao">        
+        </div>
+        
+        <br>
+ 
+        <button class="btn btn-primary" type="submit" value="Cadastrar">Cadastrar</button>
+        <button class="btn btn-secondary" type="reset" value="Limpar">Limpar</button>
+        <button class="btn btn-primary" type="button" onclick="window.location.href='{{ url_for('index') }}'">Voltar</button>    
+        
+    </form>
+    <br>
+     
+    <h4>Lista de {{titulo}}</h4>
+     <table class="table-striped table-responsive table-bordered">
+        <thead class="thread-default">
+            <tr>
+                <th> Código </th>
+                <th> Descricao </th>
+                <th> Editar </th>
+                <th> Deletar </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for c in categorias %}
+            <tr>
+                <td>{{c.id_categoria}}</td>
+                <td>{{c.descricao}}</td>
+                <td><a href={{ url_for("editarcategoria", id_categoria=c.id_categoria) }}> Editar? </a></td>
+                <td><a href={{ url_for("excluircategoria", id_categoria=c.id_categoria) }}> Deletar? </a></td>
+            </tr>
+            {% endfor %}
+     </table>
+</body>
+
+</html>

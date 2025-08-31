@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Remover Registro - Verenxovais</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h3>Confirmar Remoção</h3>
+        </div>
+        <form method="post">
+            <button class="btn btn-danger" type="submit" name="resposta" value="sim">Confirmar</button>
+            <button class="btn btn-secondary" type="submit" name="resposta" value="nao">Cancelar</button>
+            <button class="btn btn-primary" type="button" onclick="window.location.href='{{ url_for('pagina_inicial') }}'">Voltar</button>
+        </form>
+    </div>
+</body>
+</html>

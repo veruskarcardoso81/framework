@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>VERENXOVAIS- Anúncios Disponíveis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+</head>
+<body>
+    <div class="menu">
+        <a href="{{ url_for('cadusuario') }}">Usuários</a>
+        <a href="{{ url_for('cadcategoria') }}">Categorias</a>
+        <a href="{{ url_for('cadanuncio') }}">Anúncios</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div style="padding: 40px 20px 100px 20px;">
+        <h2>Bem-vindo ao VerEnxovais! A melhor loja do Brasil em Enxovais!</h2>
+        <p>Veja abaixo os anúncios disponíveis para venda:</p>
+    </div>
+
+    <div class="anuncios-bar">
+        {% if anuncios %}
+            {% for anuncio in anuncios %}
+                <div class="anuncio-card">
+                    <h4>{{ anuncio.nome }}</h4>
+                    <p><strong>Descrição:</strong> {{ anuncio.descricao }}</p>
+                    <p><strong>Valor:</strong> R$ {{ "%.2f"|format(anuncio.valor) }}</p>
+                    <p><strong>Quantidade:</strong> {{ anuncio.quantidade }}</p>
+                    <p><strong>Data:</strong> {{ anuncio.data.strftime('%d/%m/%Y') if anuncio.data else '' }}</p>
+                    <a href="{{ url_for('detalharanuncio', id_anuncio=anuncio.id_anuncio) }}">Ver detalhes</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p style="margin-left:20px;">Nenhum anúncio disponível no momento.</p>
+        {% endif %}
+    </div>
+</body>
+</html>     

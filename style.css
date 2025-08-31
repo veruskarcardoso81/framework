@@ -1,0 +1,65 @@
+/* Estilos principais para o site da Verenxovais - Loja de Lençóis, Edredons e Travesseiros */
+
+body { 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0; 
+    background-color: #fefefe;
+}
+
+.menu {
+    background: #e3d888;  /* cor mais clara para visual confortável */
+    color: #222;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.menu a {
+    color: #222;
+    margin: 0 18px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.produtos-bar {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: #fafafa;
+    border-top: 2px solid #ccc;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding: 10px 0;
+}
+
+.produto-card {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin: 0 10px;
+    padding: 10px;
+    min-width: 230px;
+    vertical-align: top;
+    box-shadow: 1px 1px 8px #ccc;
+    transition: transform 0.3s ease;
+}
+
+.produto-card:hover {
+    transform: scale(1.02);
+    box-shadow: 2px 2px 10px #bbb;
+}
+
+.produto-card h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.produto-card p {
+    margin: 3px 0;
+    font-size: 0.95em;
+    color: #555;
+}

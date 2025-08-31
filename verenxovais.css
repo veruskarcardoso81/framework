@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.menu-verenxovais {
+    background: #e1d5a6;
+    color: #333;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.menu-verenxovais a {
+    color: #222;
+    margin: 0 20px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.card-produto {
+    display: inline-block;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin: 0 10px;
+    padding: 10px;
+    min-width: 220px;
+    box-shadow: 1px 1px 6px #ccc;
+}
