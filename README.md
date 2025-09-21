@@ -2,4 +2,4 @@
 Desenvolvimento de um E-Commerce VerEnxovais, para Curso de Analise e  Desenvolvimento de Sistemas EAD - Toledo Centro Universitário
 
 Deploy em: 
-https://vercardoso.pythonanywhere.com/
+https://veruskacardoso01.pythonanywhere.com/
