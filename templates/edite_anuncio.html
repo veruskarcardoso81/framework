@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> VERENXOVAIS - Edição de {{titulo}} </title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+
+
+</head
+>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Edição de {{titulo}}</h1>
+        </div>
+        <form action="{{ url_for('editaranuncio', id_anuncio=anuncio.id_anuncio) }}" method="post">
+            <div class="form-group">
+                <label for="nome" class="form-label">Nome</label> 
+                <input type="text" class="form-control" id="nome" name="nome" value="{{anuncio.nome}}">
+            </div>  
+            <br>    
+            <div class="form-group">
+                <label for="descricao" class="form-label">Descricao</label> 
+                <input type="text" class="form-control" id="descricao" name="descricao" value="{{anuncio.descricao}}">
+            </div>  
+            <br>
+            <div class="form-group">
+                <label for="data" class="form-label" >Data</label> 
+                <input type="text" class="form-control" id="data" name="data" value="{{anuncio.data}}">
+            </div>  
+            <br>
+            <div class="form-group">
+                <label for="quantidade" class="form-label">Quantidade</label>
+                <input type="text" class="form-control" id="quantidade" name="quantidade" value="{{anuncio.quantidade}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="valor" class="form-label">Valor</label>
+                <input type="text" class="form-control" id="valor" name="valor" value="{{anuncio.valor}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="situacao" class="form-label">Situação</label>
+                <input type="text" class="form-control" id="situacao" name="situacao" value="{{anuncio.situacao}}">
+            </div>
+            <br>    
+            <div class="form-group">
+                <label for="id_cat" class="form-label" >Selecione a Categoria</label>
+                <select id="id_cat" name="id_cat">
+                    {% for c in categorias %}
+                        <option value="{{ c.id_categoria }}" 
+                            {% if c.id_categoria == anuncio.id_cat %}
+                               selected
+                            {% endif %}> {{ c.descricao }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>  
+            <br>
+            <button class="btn btn-primary" type="submit" value="Alterar">Cadastrar</button>
+            <button class="btn btn-primary" type="button" onclick="window.location.href='{{ url_for('cadanuncio') }}'">Cancelar</button>
+            <br>
+        </form>
+    </div>
+</body>
+
+</html>

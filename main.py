@@ -12,7 +12,9 @@ import hashlib
 
 app = Flask(__name__)
 ## Configurando a ligação com o BD  = 'mysql://USUARIO:SENHA@SERVIDOR:PORTA/DATABASE'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://testuser:toledo22@localhost:3306/mydb'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://testuser:toledo22@localhost/mydb'
+
+
 
 #uso para retirar um warning
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  
@@ -249,21 +251,20 @@ def editarusuario(id_usuario):
 
 @app.route("/usuario/excluir/<int:id_usuario>", methods=['GET', 'POST'])
 def excluirusuario(id_usuario):
-    usuario = Usuario.query.get(id_usuario)
-    if not usuario:
-        return "Usuário não encontrado", 404
-       
+    usuario = Usuario.query.get_or_404(id_usuario)  # retorna 404 automaticamente se não existir
+
     if request.method == 'POST':
         if request.form.get('confirmar') == 'sim':
             db.session.delete(usuario)
             db.session.commit()
-            return redirect(url_for('cadusuario'))      
-        else:
-            return redirect(url_for('cadusuario')) 
- 
+        return redirect(url_for('cadusuario'))
+
+    # GET → mostra a página de confirmação
     return render_template(
-        'confirmarexclusão.html',
-        url_cancelar ='cadusuario')
+        'confirmarexclusao.html',  # sem acento no nome do arquivo
+        usuario=usuario
+    )
+
          
 ####################### CATEGORIAS - ROTAS #######################
 @app.route("/cad/categoria")
@@ -423,5 +424,8 @@ def enviar_pergunta_resposta(id_anuncio):
     db.session.commit()
 
     return redirect(url_for('detalharanuncio', id_anuncio=id_anuncio))
+
+if __name__ == "__main__":
+    app.run(debug=True)
 
 

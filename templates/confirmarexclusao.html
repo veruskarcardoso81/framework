@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirmar Exclusão - Verenxovais</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+{% include 'navbar.html' %}
+
+<div class="container mt-5">
+    <h3>Confirmar Exclusão</h3>
+    <p>Você tem certeza que deseja excluir o usuário <strong>{{ usuario.nome }}</strong>?</p>
+    
+    <form action="{{ url_for('excluirusuario', id_usuario=usuario.id_usuario) }}" method="post">
+    <button type="submit" name="confirmar" value="sim" class="btn btn-danger">Sim, excluir</button>
+    <a href="{{ url_for('cadusuario') }}" class="btn btn-secondary">Cancelar</a>
+</form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

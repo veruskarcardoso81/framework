@@ -1,0 +1,29 @@
+<!-- templates/navbar.html -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ url_for('index') }}">Verenxovais</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'cadusuario' %}active{% endif %}" href="{{ url_for('cadusuario') }}">Usuários</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'cadcategoria' %}active{% endif %}" href="{{ url_for('cadcategoria') }}">Categorias</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link {% if request.endpoint == 'cadanuncio' %}active{% endif %}" href="{{ url_for('cadanuncio') }}">Anúncios</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

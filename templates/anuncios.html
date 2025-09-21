@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>VERENXOVAIS - Cadastro de {{ titulo }}</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+</head>
+<body>
+
+<!-- Navbar -->
+{% include 'navbar.html' %}
+
+
+<div class="container">
+    <h3 class="mb-4">Cadastro de {{ titulo }}</h3>
+
+    <!-- Formulário de cadastro -->
+    <form action="{{ url_for('criaranuncio') }}" method="post" class="mb-5">
+        <div class="mb-3">
+            <label for="nome" class="form-label">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome do anúncio" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="descricao" class="form-label">Descrição</label>
+            <textarea class="form-control" id="descricao" name="descricao" rows="4" placeholder="Descrição detalhada" required></textarea>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-4">
+                <label for="data" class="form-label">Data do Anúncio</label>
+                <input type="date" class="form-control" id="data" name="data" required>
+            </div>
+            <div class="col-md-4">
+                <label for="quant" class="form-label">Quantidade</label>
+                <input type="number" class="form-control" id="quant" name="quant" min="1" required>
+            </div>
+            <div class="col-md-4">
+                <label for="valor" class="form-label">Valor (R$)</label>
+                <input type="number" step="0.01" class="form-control" id="valor" name="valor" min="0" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="situacao" class="form-label">Situação</label>
+            <select class="form-select" id="situacao" name="situacao" required>
+                <option value="Ativo">Ativo</option>
+                <option value="Vendido">Vendido</option>
+                <option value="Cancelado">Cancelado</option>
+            </select>
+        </div>
+
+        <div class="row g-3 mb-3">
+            <div class="col-md-6">
+                <label for="id_us_prop_anuncio" class="form-label">Usuário Proprietário</label>
+                <select class="form-select" id="id_us_prop_anuncio" name="id_us_prop_anuncio" required>
+                    {% for u in usuarios %}
+                        <option value="{{ u.id_usuario }}">{{ u.nome }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="id_cat" class="form-label">Categoria</label>
+                <select class="form-select" id="id_cat" name="id_cat" required>
+                    {% for c in categorias %}
+                        <option value="{{ c.id_categoria }}">{{ c.descricao }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+        <button class="btn btn-secondary" type="reset">Limpar</button>
+        <button class="btn btn-outline-primary" type="button" onclick="window.location.href='{{ url_for('index') }}'">Voltar</button>
+    </form>
+
+    <!-- Lista de anúncios -->
+    <h4>Lista de {{ titulo }}</h4>
+    {% if anuncios %}
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Código</th>
+                    <th>Nome</th>
+                    <th>Descrição</th>
+                    <th>Data</th>
+                    <th>Quantidade</th>
+                    <th>Valor</th>
+                    <th>Situação</th>
+                    <th>Usuário</th>
+                    <th>Categoria</th>
+                    <th>Editar</th>
+                    <th>Deletar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in anuncios %}
+                <tr>
+                    <td>{{ a.id_anuncio }}</td>
+                    <td>{{ a.nome }}</td>
+                    <td>{{ a.descricao }}</td>
+                    <td>{{ a.data.strftime('%d/%m/%Y') if a.data else '' }}</td>
+                    <td>{{ a.quantidade }}</td>
+                    <td>R$ {{ "%.2f"|format(a.valor) }}</td>
+                    <td>{{ a.situacao }}</td>
+                    <td>{{ a.usuario_nome or a.id_us_prop_anuncio }}</td>
+                    <td>{{ a.categoria_descricao or a.id_cat }}</td>
+                    <td><a href="{{ url_for('editaranuncio', id_anuncio=a.id_anuncio) }}" class="btn btn-sm btn-warning">Editar</a></td>
+                    <td><a href="{{ url_for('excluiranuncio', id_anuncio=a.id_anuncio) }}" class="btn btn-sm btn-danger">Deletar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+        <div class="alert alert-info">Nenhum anúncio cadastrado.</div>
+    {% endif %}
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verenxovais - Editar Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Atualizar Dados do Cliente</h1>
+        </div>
+        <form action="{{ url_for('atualizar_cliente', id_cliente=cliente.id_cliente) }}" method="post">
+            <div class="form-group">
+                <label for="nome_completo">Nome Completo</label> 
+                <input type="text" class="form-control" id="nome_completo" name="nome_completo" value="{{cliente.nome_completo}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="usuario_login">Usuário</label> 
+                <input type="text" class="form-control" id="usuario_login" name="usuario_login" value="{{cliente.usuario_login}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="senha_acesso">Senha</label> 
+                <input type="password" class="form-control" id="senha_acesso" name="senha_acesso" value="{{cliente.senha_acesso}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="email_contato">E-mail</label>
+                <input type="text" class="form-control" id="email_contato" name="email_contato" value="{{cliente.email_contato}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="telefone">Telefone</label>
+                <input type="text" class="form-control" id="telefone" name="telefone" value="{{cliente.telefone}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="endereco_rua">Rua</label>
+                <input type="text" class="form-control" id="endereco_rua" name="endereco_rua" value="{{cliente.endereco_rua}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="endereco_numero">Número</label>
+                <input type="text" class="form-control" id="endereco_numero" name="endereco_numero" value="{{cliente.endereco_numero}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="bairro_local">Bairro</label>
+                <input type="text" class="form-control" id="bairro_local" name="bairro_local" value="{{cliente.bairro_local}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="cidade_local">Cidade</label>
+                <input type="text" class="form-control" id="cidade_local" name="cidade_local" value="{{cliente.cidade_local}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="estado_local">Estado</label>
+                <input type="text" class="form-control" id="estado_local" name="estado_local" value="{{cliente.estado_local}}">
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="cep_local">CEP</label>
+                <input type="text" class="form-control" id="cep_local" name="cep_local" value="{{cliente.cep_local}}">
+            </div>
+            <br>
+            <button class="btn btn-success" type="submit">Salvar</button>
+            <button class="btn btn-danger" type="button" onclick="window.location.href='{{ url_for('listar_clientes') }}'">Cancelar</button>
+        </form>
+    </div>
+</body>
+</html>

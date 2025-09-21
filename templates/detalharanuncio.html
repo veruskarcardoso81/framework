@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>VERENXOVAIS - Detalhes do Anúncio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/verenxovais.css') }}">
+</head>
+<body>
+
+<!-- Navbar genérica -->
+{% include 'navbar.html' %}
+
+<div class="container my-4">
+
+    {% if anuncio %}
+    <div class="card mb-4">
+        <div class="card-header">
+            <h2>{{ anuncio.nome }}</h2>
+        </div>
+        <div class="card-body">
+            <p><strong>Descrição:</strong> {{ anuncio.descricao }}</p>
+            <p><strong>Valor:</strong> R$ {{ "%.2f"|format(anuncio.valor) }}</p>
+            <p><strong>Quantidade disponível:</strong> {{ anuncio.quantidade }}</p>
+            <p><strong>Data de publicação:</strong> {{ anuncio.data.strftime('%d/%m/%Y') if anuncio.data else '' }}</p>
+            {% if anuncio.categoria %}
+                <p><strong>Categoria:</strong> {{ anuncio.categoria.nome }}</p>
+            {% endif %}
+            {% if anuncio.usuario %}
+                <p><strong>Vendedor:</strong> {{ anuncio.usuario.nome }}</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Formulário de perguntas/respostas -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Fazer uma pergunta ou resposta</h4>
+        </div>
+        <div class="card-body">
+            <form action="{{ url_for('enviar_pergunta_resposta', id_anuncio=anuncio.id_anuncio) }}" method="POST">
+                <div class="mb-3">
+                    <label for="descricao" class="form-label">Texto</label>
+                    <textarea class="form-control" name="descricao" id="descricao" rows="3" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo</label>
+                    <select class="form-select" name="tipo" id="tipo" required>
+                        <option value="pergunta">Pergunta</option>
+                        <option value="resposta">Resposta</option>
+                    </select>
+                </div>
+
+                <input type="hidden" name="id_usuario" value="{{ usuario_logado.id_usuario }}">
+
+                <div class="d-flex gap-2">
+                    <button class="btn btn-primary" type="submit">Enviar</button>
+                    <button class="btn btn-success" type="submit">Comprar</button>
+                    <button class="btn btn-warning text-white" type="submit">Marcar como Favorito</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Perguntas e respostas -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h4>Perguntas e Respostas</h4>
+        </div>
+        <div class="card-body">
+            {% if mensagens %}
+                {% for msg in mensagens %}
+                <div class="mb-3">
+                    <p><strong>{{ msg.tipo|capitalize }}:</strong> {{ msg.descricao }}</p>
+                    <p class="text-muted small">Por {{ msg.usuario.nome }} em {{ msg.data.strftime('%d/%m/%Y %H:%M') }}</p>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>Nenhuma pergunta ou resposta ainda.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <a class="btn btn-secondary" href="{{ url_for('index') }}">← Voltar para anúncios</a>
+
+    {% else %}
+    <div class="alert alert-danger">
+        O anúncio solicitado não foi encontrado.
+    </div>
+    <a class="btn btn-secondary" href="{{ url_for('index') }}">← Voltar</a>
+    {% endif %}
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
